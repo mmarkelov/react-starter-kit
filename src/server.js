@@ -47,6 +47,8 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 
 const app = express();
 
+const useStream = process.argv.includes('--stream');
+
 //
 // If you are using proxy from external machine, you can set TRUST_PROXY env
 // Default is to trust proxy headers only from loopback interface.
@@ -180,9 +182,21 @@ app.get('*', async (req, res, next) => {
       apiUrl: config.api.clientUrl,
     };
 
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    if (useStream) {
+      res.write('<!doctype html>');
+      const stream = ReactDOM.renderToStaticNodeStream(<Html {...data} />);
+      stream.pipe(
+        res,
+        { end: false },
+      );
+      stream.on('end', () => {
+        res.end();
+      });
+    } else {
+      const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+      res.send(`<!doctype html>${html}`);
+    }
     res.status(route.status || 200);
-    res.send(`<!doctype html>${html}`);
   } catch (err) {
     next(err);
   }
