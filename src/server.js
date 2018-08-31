@@ -18,11 +18,11 @@ import jwt from 'jsonwebtoken';
 import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
+import { ServerStyleSheet } from 'styled-components';
 import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
-import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
@@ -160,10 +160,13 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(
-      <App context={context}>{route.component}</App>,
+    data.useStream = useStream;
+    // data.styles = [{ id: 'css', cssText: [...css].join('') }];
+    data.children = useStream ? (
+      <App context={context}>{route.component}</App>
+    ) : (
+      ReactDOM.renderToString(<App context={context}>{route.component}</App>)
     );
-    data.styles = [{ id: 'css', cssText: [...css].join('') }];
 
     const scripts = new Set();
     const addChunk = chunk => {
@@ -184,7 +187,11 @@ app.get('*', async (req, res, next) => {
 
     if (useStream) {
       res.write('<!doctype html>');
-      const stream = ReactDOM.renderToStaticNodeStream(<Html {...data} />);
+      const sheet = new ServerStyleSheet();
+      const jsx = sheet.collectStyles(<Html {...data} />);
+      const stream = sheet.interleaveWithNodeStream(
+        ReactDOM.renderToStaticNodeStream(jsx),
+      );
       stream.pipe(
         res,
         { end: false },
@@ -213,11 +220,7 @@ pe.skipPackage('express');
 app.use((err, req, res, next) => {
   console.error(pe.render(err));
   const html = ReactDOM.renderToStaticMarkup(
-    <Html
-      title="Internal Server Error"
-      description={err.message}
-      styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
-    >
+    <Html title="Internal Server Error" description={err.message}>
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,
   );

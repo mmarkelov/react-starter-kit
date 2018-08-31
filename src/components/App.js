@@ -17,7 +17,8 @@ const ContextType = {
   // Universal HTTP client
   fetch: PropTypes.func.isRequired,
   pathname: PropTypes.string.isRequired,
-  query: PropTypes.shape,
+  // eslint-disable-next-line react/forbid-prop-types
+  query: PropTypes.object,
 };
 
 /**

@@ -9,14 +9,27 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
+import { injectGlobal } from 'styled-components';
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
-import s from './Layout.css';
+import cssVariables from '../styledVariables';
+import layout from './Layout.css';
 import Header from '../Header';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
+
+// eslint-disable-next-line no-unused-expressions
+injectGlobal`
+html {
+  color: #222;
+  font-weight: 100;
+  font-size: 1em;
+  font-family: ${cssVariables.fontFamilyBase};
+  line-height: 1.375;
+}
+${normalizeCss.toString()}
+${layout.toString()}
+`;
 
 class Layout extends React.Component {
   static propTypes = {
@@ -35,4 +48,4 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(normalizeCss, s)(Layout);
+export default Layout;

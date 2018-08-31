@@ -8,36 +8,60 @@
  */
 
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Footer.css';
+import styled from 'styled-components';
+import cssVariables from '../styledVariables';
 import Link from '../Link';
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <span className={s.text}>© Your Company</span>
-          <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/">
-            Home
-          </Link>
-          <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/admin">
-            Admin
-          </Link>
-          <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/privacy">
-            Privacy
-          </Link>
-          <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/not-found">
-            Not Found
-          </Link>
-        </div>
-      </div>
-    );
-  }
-}
+const LINKS = [
+  { title: 'Home', value: '/' },
+  { title: 'Admin', value: '/admin' },
+  { title: 'Privacy', value: '/privacy' },
+  { title: 'Not Found', value: '/not-found' },
+];
 
-export default withStyles(s)(Footer);
+const RootDiv = styled.div`
+  background: #333;
+  color: #fff;
+`;
+
+const Container = styled.div`
+  margin: 0 auto;
+  padding: 20px 15px;
+  max-width: ${cssVariables.maxContentWidth};
+  text-align: center;
+`;
+
+const FooterLink = styled(Link)`
+  padding: 2px 5px;
+  font-size: 1em;
+
+  &:active,
+  &:visited {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+  }
+`;
+
+const Text = styled.span`
+  color: rgba(255, 255, 255, 0.5);
+`;
+
+const Spacer = styled.span`
+  color: rgba(255, 255, 255, 0.3);
+`;
+
+const Footer = () => (
+  <RootDiv>
+    <Container>
+      <Text>© Your Company</Text>
+      {LINKS.map(link => (
+        <React.Fragment key={link.title}>
+          <Spacer>·</Spacer>
+          <FooterLink to={link.value}>{link.title}</FooterLink>
+        </React.Fragment>
+      ))}
+    </Container>
+  </RootDiv>
+);
+
+export default Footer;
