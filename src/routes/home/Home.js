@@ -9,10 +9,49 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Home.css';
+import styled from 'styled-components';
+import cssVariables from '../../components/styledVariables';
 
-class Home extends React.Component {
+const RootDiv = styled.div`
+  padding-left: 20px;
+  padding-right: 20px;
+`;
+
+const Container = styled.div`
+  margin: 0 auto;
+  padding: 0 0 40px;
+  max-width: ${cssVariables.maxContentWidth};
+`;
+
+const NewsItem = styled.article`
+  margin: 0 0 2rem;
+`;
+
+const NewsTitle = styled.h1`
+  font-size: 1.5rem;
+`;
+
+const NewsDesc = styled.div`
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.125rem;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+  }
+
+  img {
+    max-width: 100%;
+  }
+`;
+
+export default class Home extends React.Component {
   static propTypes = {
     news: PropTypes.arrayOf(
       PropTypes.shape({
@@ -25,25 +64,22 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
+      <RootDiv>
+        <Container>
           <h1>React.js News</h1>
           {this.props.news.map(item => (
-            <article key={item.link} className={s.newsItem}>
-              <h1 className={s.newsTitle}>
+            <NewsItem key={item.link}>
+              <NewsTitle>
                 <a href={item.link}>{item.title}</a>
-              </h1>
-              <div
-                className={s.newsDesc}
+              </NewsTitle>
+              <NewsDesc
                 // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{ __html: item.content }}
               />
-            </article>
+            </NewsItem>
           ))}
-        </div>
-      </div>
+        </Container>
+      </RootDiv>
     );
   }
 }
-
-export default withStyles(s)(Home);

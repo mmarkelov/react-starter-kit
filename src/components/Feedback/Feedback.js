@@ -8,31 +8,56 @@
  */
 
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Feedback.css';
+import styled from 'styled-components';
+import cssVariables from '../styledVariables';
 
-class Feedback extends React.Component {
-  render() {
-    return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <a
-            className={s.link}
-            href="https://gitter.im/kriasoft/react-starter-kit"
-          >
-            Ask a question
-          </a>
-          <span className={s.spacer}>|</span>
-          <a
-            className={s.link}
-            href="https://github.com/kriasoft/react-starter-kit/issues/new"
-          >
-            Report an issue
-          </a>
-        </div>
-      </div>
-    );
+const RootDiv = styled.div`
+  background: #f5f5f5;
+  color: #333;
+`;
+
+const Container = styled.div`
+  margin: 0 auto;
+  padding: 20px 8px;
+  max-width: ${cssVariables.maxContentWidth};
+  text-align: center;
+  font-size: 1.5em;
+`;
+
+const Link = styled.a`
+  &:active,
+  &:hover,
+  &:visited {
+    color: #333;
+    text-decoration: none;
   }
-}
 
-export default withStyles(s)(Feedback);
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const Spacer = styled.span`
+  padding-right: 15px;
+  padding-left: 15px;
+`;
+
+const renderLink = (link, title) => <Link href={link}>{title}</Link>;
+
+const Feedback = () => (
+  <RootDiv>
+    <Container>
+      {renderLink(
+        'https://gitter.im/kriasoft/react-starter-kit',
+        'Ask a question',
+      )}
+      <Spacer>|</Spacer>
+      {renderLink(
+        'https://github.com/kriasoft/react-starter-kit/issues/new',
+        'Report an issue',
+      )}
+    </Container>
+  </RootDiv>
+);
+
+export default Feedback;

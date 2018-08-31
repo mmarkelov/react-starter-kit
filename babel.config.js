@@ -25,6 +25,7 @@ module.exports = {
   plugins: [
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
+    'styled-components',
   ],
   ignore: ['node_modules', 'build'],
 };

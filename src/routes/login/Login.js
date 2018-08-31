@@ -9,8 +9,155 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Login.css';
+import styled from 'styled-components';
+
+const RootDiv = styled.div`
+  padding-left: 20px;
+  padding-right: 20px;
+`;
+
+const Container = styled.div`
+  margin: 0 auto;
+  padding: 0 0 40px;
+  max-width: 380px;
+`;
+
+const Lead = styled.p`
+  font-size: 1.25em;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 15px;
+`;
+
+const Label = styled.label`
+  display: block;
+  font-weight: 700;
+`;
+
+const Input = styled.input`
+  display: block;
+  box-sizing: border-box;
+  margin: 5px 0 0;
+  padding: 10px 16px;
+  width: 100%;
+  height: 46px;
+  outline: 0;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  color: #616161;
+  font-size: 18px;
+  line-height: 1.3333333;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+
+  &:focus {
+    border-color: #0074c2;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+      0 0 8px rgba(0, 116, 194, 0.6);
+  }
+`;
+
+const Button = styled.button`
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px 16px;
+  width: 100%;
+  outline: 0;
+  border: 1px solid #373277;
+  border-radius: 0;
+  background: #373277;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 1.3333333;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(54, 50, 119, 0.8);
+  }
+
+  &:focus {
+    border-color: #0074c2;
+    box-shadow: 0 0 8px rgba(0, 116, 194, 0.6);
+  }
+`;
+
+const Facebook = styled(Button)`
+  border-color: #3b5998;
+  background: #3b5998;
+  composes: button;
+
+  &:hover {
+    background: #2d4373;
+  }
+`;
+
+const Google = styled(Button)`
+  border-color: #dd4b39;
+  background: #dd4b39;
+  composes: button;
+
+  &:hover {
+    background: #c23321;
+  }
+`;
+
+const Tweeter = styled(Button)`
+  border-color: #55acee;
+  background: #55acee;
+  composes: button;
+
+  &:hover {
+    background: #2795e9;
+  }
+`;
+
+const Icon = styled.svg`
+  display: inline-block;
+  margin: -2px 12px -2px 0;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  fill: currentColor;
+`;
+
+const LineThrough = styled.strong`
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-bottom: 15px;
+  width: 100%;
+  color: #757575;
+  text-align: center;
+  font-size: 80%;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    margin-top: -5px;
+    margin-left: -20px;
+    width: 40px;
+    height: 10px;
+    background-color: #fff;
+    content: '';
+  }
+
+  &::after {
+    position: absolute;
+    top: 49%;
+    z-index: -2;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    content: '';
+  }
+`;
 
 class Login extends React.Component {
   static propTypes = {
@@ -19,30 +166,26 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
+      <RootDiv>
+        <Container>
           <h1>{this.props.title}</h1>
-          <p className={s.lead}>
-            Log in with your username or company email address.
-          </p>
-          <div className={s.formGroup}>
-            <a className={s.facebook} href="/login/facebook">
-              <svg
-                className={s.icon}
+          <Lead>Log in with your username or company email address.</Lead>
+          <FormGroup>
+            <Facebook href="/login/facebook">
+              <Icon
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M22 16l1-5h-5V7c0-1.544.784-2 3-2h2V0h-4c-4.072 0-7 2.435-7 7v4H7v5h5v14h6V16h4z" />
-              </svg>
+              </Icon>
               <span>Log in with Facebook</span>
-            </a>
-          </div>
-          <div className={s.formGroup}>
-            <a className={s.google} href="/login/google">
-              <svg
-                className={s.icon}
+            </Facebook>
+          </FormGroup>
+          <FormGroup>
+            <Google href="/login/google">
+              <Icon
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -60,14 +203,13 @@ class Login extends React.Component {
                     '2.88.88 4 2 1 1 1 2.674 1 3 0 3-1.986 4-7 4z'
                   }
                 />
-              </svg>
+              </Icon>
               <span>Log in with Google</span>
-            </a>
-          </div>
-          <div className={s.formGroup}>
-            <a className={s.twitter} href="/login/twitter">
-              <svg
-                className={s.icon}
+            </Google>
+          </FormGroup>
+          <FormGroup>
+            <Tweeter href="/login/twitter">
+              <Icon
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -84,45 +226,37 @@ class Login extends React.Component {
                     '0-.268.008-.736 0-1 1.2-.868 2.172-2.058 3-3.292z'
                   }
                 />
-              </svg>
+              </Icon>
               <span>Log in with Twitter</span>
-            </a>
-          </div>
-          <strong className={s.lineThrough}>OR</strong>
+            </Tweeter>
+          </FormGroup>
+          <LineThrough>OR</LineThrough>
           <form method="post">
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="usernameOrEmail">
+            <FormGroup>
+              <Label htmlFor="usernameOrEmail">
                 Username or email address:
-                <input
-                  className={s.input}
+                <Input
                   id="usernameOrEmail"
                   type="text"
                   name="usernameOrEmail"
                   autoFocus // eslint-disable-line jsx-a11y/no-autofocus
                 />
-              </label>
-            </div>
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="password">
+              </Label>
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password">
                 Password:
-                <input
-                  className={s.input}
-                  id="password"
-                  type="password"
-                  name="password"
-                />
-              </label>
-            </div>
-            <div className={s.formGroup}>
-              <button className={s.button} type="submit">
-                Log in
-              </button>
-            </div>
+                <Input id="password" type="password" name="password" />
+              </Label>
+            </FormGroup>
+            <FormGroup>
+              <Button type="submit">Log in</Button>
+            </FormGroup>
           </form>
-        </div>
-      </div>
+        </Container>
+      </RootDiv>
     );
   }
 }
 
-export default withStyles(s)(Login);
+export default Login;

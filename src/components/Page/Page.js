@@ -8,30 +8,36 @@
  */
 
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Page.css';
+import cssVariables from '../styledVariables';
 
-class Page extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    html: PropTypes.string.isRequired,
-  };
+const RootDiv = styled.div`
+  padding-left: 20px;
+  padding-right: 20px;
+`;
 
-  render() {
-    const { title, html } = this.props;
-    return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>{title}</h1>
-          <div
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-        </div>
-      </div>
-    );
-  }
-}
+const Container = styled.div`
+  margin: 0 auto;
+  padding: 0 0 40px;
+  max-width: ${cssVariables.maxContentWidth};
+`;
 
-export default withStyles(s)(Page);
+const Page = ({ title, html }) => (
+  <RootDiv>
+    <Container>
+      <h1>{title}</h1>
+      <div
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </Container>
+  </RootDiv>
+);
+
+Page.propTypes = {
+  title: PropTypes.string.isRequired,
+  html: PropTypes.string.isRequired,
+};
+
+export default Page;

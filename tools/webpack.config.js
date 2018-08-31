@@ -106,6 +106,7 @@ const config = {
             ['@babel/preset-react', { development: isDebug }],
           ],
           plugins: [
+            'styled-components',
             '@babel/plugin-proposal-class-properties',
             '@babel/plugin-syntax-dynamic-import',
             // Treat React JSX elements as value types and hoist them to the highest scope
@@ -125,12 +126,6 @@ const config = {
       {
         test: reStyle,
         rules: [
-          // Convert CSS into JS module
-          {
-            issuer: { not: [reStyle] },
-            use: 'isomorphic-style-loader',
-          },
-
           // Process external/third-party styles
           {
             exclude: SRC_DIR,

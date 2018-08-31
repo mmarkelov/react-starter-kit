@@ -9,24 +9,33 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Register.css';
+import styled from 'styled-components';
+import cssVariables from '../../components/styledVariables';
 
-class Register extends React.Component {
+const RootDiv = styled.div`
+  padding-left: 20px;
+  padding-right: 20px;
+`;
+
+const Container = styled.div`
+  margin: 0 auto;
+  padding: 0 0 40px;
+  max-width: ${cssVariables.maxContentWidth};
+`;
+
+export default class Register extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
 
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
+      <RootDiv>
+        <Container>
           <h1>{this.props.title}</h1>
           <p>...</p>
-        </div>
-      </div>
+        </Container>
+      </RootDiv>
     );
   }
 }
-
-export default withStyles(s)(Register);

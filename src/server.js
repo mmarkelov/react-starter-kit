@@ -18,11 +18,11 @@ import jwt from 'jsonwebtoken';
 import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
+import { ServerStyleSheet } from 'styled-components';
 import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
-import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
@@ -46,6 +46,8 @@ global.navigator = global.navigator || {};
 global.navigator.userAgent = global.navigator.userAgent || 'all';
 
 const app = express();
+
+const useStream = process.argv.includes('--stream');
 
 //
 // If you are using proxy from external machine, you can set TRUST_PROXY env
@@ -158,10 +160,13 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(
-      <App context={context}>{route.component}</App>,
+    data.useStream = useStream;
+    // data.styles = [{ id: 'css', cssText: [...css].join('') }];
+    data.children = useStream ? (
+      <App context={context}>{route.component}</App>
+    ) : (
+      ReactDOM.renderToString(<App context={context}>{route.component}</App>)
     );
-    data.styles = [{ id: 'css', cssText: [...css].join('') }];
 
     const scripts = new Set();
     const addChunk = chunk => {
@@ -180,9 +185,25 @@ app.get('*', async (req, res, next) => {
       apiUrl: config.api.clientUrl,
     };
 
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    if (useStream) {
+      res.write('<!doctype html>');
+      const sheet = new ServerStyleSheet();
+      const jsx = sheet.collectStyles(<Html {...data} />);
+      const stream = sheet.interleaveWithNodeStream(
+        ReactDOM.renderToStaticNodeStream(jsx),
+      );
+      stream.pipe(
+        res,
+        { end: false },
+      );
+      stream.on('end', () => {
+        res.end();
+      });
+    } else {
+      const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+      res.send(`<!doctype html>${html}`);
+    }
     res.status(route.status || 200);
-    res.send(`<!doctype html>${html}`);
   } catch (err) {
     next(err);
   }
@@ -199,11 +220,7 @@ pe.skipPackage('express');
 app.use((err, req, res, next) => {
   console.error(pe.render(err));
   const html = ReactDOM.renderToStaticMarkup(
-    <Html
-      title="Internal Server Error"
-      description={err.message}
-      styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
-    >
+    <Html title="Internal Server Error" description={err.message}>
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,
   );
