@@ -18,10 +18,10 @@ class Html extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    styles: PropTypes.arrayOf(
+    styleElements: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        cssText: PropTypes.string.isRequired,
+        key: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
       }).isRequired,
     ),
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
@@ -30,12 +30,19 @@ class Html extends React.Component {
   };
 
   static defaultProps = {
-    styles: [],
+    styleElements: [],
     scripts: [],
   };
 
   render() {
-    const { title, description, styles, scripts, app, children } = this.props;
+    const {
+      title,
+      description,
+      scripts,
+      app,
+      children,
+      styleElements,
+    } = this.props;
     return (
       <html className="no-js" lang="en">
         <head>
@@ -49,13 +56,7 @@ class Html extends React.Component {
           ))}
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="apple-touch-icon" href="/icon.png" />
-          {styles.map(style => (
-            <style
-              key={style.id}
-              id={style.id}
-              dangerouslySetInnerHTML={{ __html: style.cssText }}
-            />
-          ))}
+          {styleElements.map(styleElement => styleElement)}
         </head>
         <body>
           <div id="app">{children}</div>
