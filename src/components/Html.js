@@ -27,25 +27,15 @@ class Html extends React.Component {
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     app: PropTypes.object, // eslint-disable-line
     children: PropTypes.string.isRequired,
-    useStream: PropTypes.bool,
   };
 
   static defaultProps = {
     styles: [],
     scripts: [],
-    useStream: false,
   };
 
   render() {
-    const {
-      title,
-      description,
-      styles,
-      scripts,
-      app,
-      children,
-      useStream,
-    } = this.props;
+    const { title, description, styles, scripts, app, children } = this.props;
     return (
       <html className="no-js" lang="en">
         <head>
@@ -68,11 +58,7 @@ class Html extends React.Component {
           ))}
         </head>
         <body>
-          {useStream ? (
-            <div id="app">{children}</div>
-          ) : (
-            <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
-          )}
+          <div id="app">{children}</div>
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
           />

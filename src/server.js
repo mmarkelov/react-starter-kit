@@ -18,7 +18,7 @@ import jwt from 'jsonwebtoken';
 import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
@@ -125,15 +125,6 @@ app.use(
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
-    const css = new Set();
-
-    // Enables critical path CSS rendering
-    // https://github.com/kriasoft/isomorphic-style-loader
-    const insertCss = (...styles) => {
-      // eslint-disable-next-line no-underscore-dangle
-      styles.forEach(style => css.add(style._getCss()));
-    };
-
     // Universal HTTP client
     const fetch = createFetch(nodeFetch, {
       baseUrl: config.api.serverUrl,
@@ -145,7 +136,6 @@ app.get('*', async (req, res, next) => {
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
     const context = {
-      insertCss,
       fetch,
       // The twins below are wild, be careful!
       pathname: req.path,
@@ -160,13 +150,8 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.useStream = useStream;
-    // data.styles = [{ id: 'css', cssText: [...css].join('') }];
-    data.children = useStream ? (
-      <App context={context}>{route.component}</App>
-    ) : (
-      ReactDOM.renderToString(<App context={context}>{route.component}</App>)
-    );
+
+    data.children = <App context={context}>{route.component}</App>;
 
     const scripts = new Set();
     const addChunk = chunk => {
@@ -185,9 +170,10 @@ app.get('*', async (req, res, next) => {
       apiUrl: config.api.clientUrl,
     };
 
+    const sheet = new ServerStyleSheet();
+
     if (useStream) {
       res.write('<!doctype html>');
-      const sheet = new ServerStyleSheet();
       const jsx = sheet.collectStyles(<Html {...data} />);
       const stream = sheet.interleaveWithNodeStream(
         ReactDOM.renderToStaticNodeStream(jsx),
@@ -200,7 +186,11 @@ app.get('*', async (req, res, next) => {
         res.end();
       });
     } else {
-      const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+      const html = ReactDOM.renderToString(
+        <StyleSheetManager sheet={sheet.instance}>
+          <Html {...data} />
+        </StyleSheetManager>,
+      );
       res.send(`<!doctype html>${html}`);
     }
     res.status(route.status || 200);
