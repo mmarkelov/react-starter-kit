@@ -106,7 +106,7 @@ const config = {
             ['@babel/preset-react', { development: isDebug }],
           ],
           plugins: [
-            'styled-components',
+            'babel-plugin-styled-components',
             '@babel/plugin-proposal-class-properties',
             '@babel/plugin-syntax-dynamic-import',
             // Treat React JSX elements as value types and hoist them to the highest scope

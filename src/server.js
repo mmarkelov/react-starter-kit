@@ -18,7 +18,7 @@ import jwt from 'jsonwebtoken';
 import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { ServerStyleSheet } from 'styled-components';
 import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
@@ -186,11 +186,9 @@ app.get('*', async (req, res, next) => {
         res.end();
       });
     } else {
-      const html = ReactDOM.renderToString(
-        <StyleSheetManager sheet={sheet.instance}>
-          <Html {...data} />
-        </StyleSheetManager>,
-      );
+      const styleElements = sheet.getStyleElement();
+      data.styleElements = styleElements;
+      const html = ReactDOM.renderToString(<Html {...data} />);
       res.send(`<!doctype html>${html}`);
     }
     res.status(route.status || 200);
