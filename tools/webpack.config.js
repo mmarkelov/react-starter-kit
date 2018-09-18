@@ -117,7 +117,11 @@ const config = {
             ...(isDebug ? [] : ['@babel/transform-react-inline-elements']),
             // Remove unnecessary React propTypes from the production build
             // https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types
-            ...(isDebug ? [] : ['transform-react-remove-prop-types']),
+            ...(isDebug
+              ? []
+              : [
+                  ['transform-react-remove-prop-types', { removeImport: true }],
+                ]),
           ],
         },
       },
