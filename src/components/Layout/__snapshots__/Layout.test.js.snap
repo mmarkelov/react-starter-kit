@@ -3,48 +3,48 @@
 exports[`Layout renders children correctly 1`] = `
 <div>
   <div
-    className="root"
+    className="Header__RootDiv-f43oip-0 cJPDbr"
   >
     <div
-      className="container"
+      className="Header__Container-f43oip-1 cwnrlq"
     >
       <div
-        className="root"
+        className="Navigation__RootDiv-sc-1txg1td-0 jOFdkK"
         role="navigation"
       >
         <a
-          className="link"
+          className="Navigation__NavLink-sc-1txg1td-1 dUnqWc"
           href="/about"
           onClick={[Function]}
         >
           About
         </a>
         <a
-          className="link"
+          className="Navigation__NavLink-sc-1txg1td-1 dUnqWc"
           href="/contact"
           onClick={[Function]}
         >
           Contact
         </a>
         <span
-          className="spacer"
+          className="Navigation__Spacer-sc-1txg1td-2 fjkfwi"
         >
            | 
         </span>
         <a
-          className="link"
+          className="Navigation__NavLink-sc-1txg1td-1 dUnqWc"
           href="/login"
           onClick={[Function]}
         >
           Log in
         </a>
         <span
-          className="spacer"
+          className="Navigation__Spacer-sc-1txg1td-2 fjkfwi"
         >
           or
         </span>
         <a
-          className="link highlight"
+          className="Navigation__HighlightNavLink-sc-1txg1td-3 kcCXmB"
           href="/register"
           onClick={[Function]}
         >
@@ -52,7 +52,7 @@ exports[`Layout renders children correctly 1`] = `
         </a>
       </div>
       <a
-        className="brand"
+        className="Header__BrandLink-f43oip-2 jCNrbu"
         href="/"
         onClick={[Function]}
       >
@@ -64,21 +64,21 @@ exports[`Layout renders children correctly 1`] = `
           width="38"
         />
         <span
-          className="brandTxt"
+          className="Header__BrandTxt-f43oip-3 blpOGr"
         >
           Your Company
         </span>
       </a>
       <div
-        className="banner"
+        className="Header__Banner-f43oip-4 fJzGOo"
       >
         <h1
-          className="bannerTitle"
+          className="Header__BannerTitle-f43oip-5 fPWBXP"
         >
           React
         </h1>
         <p
-          className="bannerDesc"
+          className="Header__BannerDesc-f43oip-6 fstwsB"
         >
           Complex web apps made easy
         </p>
@@ -89,24 +89,24 @@ exports[`Layout renders children correctly 1`] = `
     className="child"
   />
   <div
-    className="root"
+    className="Feedback__RootDiv-sc-15bzinq-0 eHYQfT"
   >
     <div
-      className="container"
+      className="Feedback__Container-sc-15bzinq-1 kPQoeq"
     >
       <a
-        className="link"
+        className="Feedback__Link-sc-15bzinq-2 kioQbN"
         href="https://gitter.im/kriasoft/react-starter-kit"
       >
         Ask a question
       </a>
       <span
-        className="spacer"
+        className="Feedback__Spacer-sc-15bzinq-3 cKcaKG"
       >
         |
       </span>
       <a
-        className="link"
+        className="Feedback__Link-sc-15bzinq-2 kioQbN"
         href="https://github.com/kriasoft/react-starter-kit/issues/new"
       >
         Report an issue
@@ -114,59 +114,59 @@ exports[`Layout renders children correctly 1`] = `
     </div>
   </div>
   <div
-    className="root"
+    className="Footer__RootDiv-b708qw-0 cQJLnV"
   >
     <div
-      className="container"
+      className="Footer__Container-b708qw-1 fQkMhz"
     >
       <span
-        className="text"
+        className="Footer__Text-b708qw-3 dEnWnm"
       >
         © Your Company
       </span>
       <span
-        className="spacer"
+        className="Footer__Spacer-b708qw-4 ksLTpy"
       >
         ·
       </span>
       <a
-        className="link"
+        className="Footer__FooterLink-b708qw-2 dpkKcu"
         href="/"
         onClick={[Function]}
       >
         Home
       </a>
       <span
-        className="spacer"
+        className="Footer__Spacer-b708qw-4 ksLTpy"
       >
         ·
       </span>
       <a
-        className="link"
+        className="Footer__FooterLink-b708qw-2 dpkKcu"
         href="/admin"
         onClick={[Function]}
       >
         Admin
       </a>
       <span
-        className="spacer"
+        className="Footer__Spacer-b708qw-4 ksLTpy"
       >
         ·
       </span>
       <a
-        className="link"
+        className="Footer__FooterLink-b708qw-2 dpkKcu"
         href="/privacy"
         onClick={[Function]}
       >
         Privacy
       </a>
       <span
-        className="spacer"
+        className="Footer__Spacer-b708qw-4 ksLTpy"
       >
         ·
       </span>
       <a
-        className="link"
+        className="Footer__FooterLink-b708qw-2 dpkKcu"
         href="/not-found"
         onClick={[Function]}
       >
