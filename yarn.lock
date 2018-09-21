@@ -6180,10 +6180,6 @@ normalize-selector@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/normalize-selector/-/normalize-selector-0.2.0.tgz#d0b145eb691189c63a78d201dc4fdb1293ef0c03"
 
-normalize.css@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.0.tgz#14ac5e461612538a4ce9be90a7da23f86e718493"
-
 npm-bundled@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.3.tgz#7e71703d973af3370a9591bafe3a63aca0be2308"
@@ -8531,6 +8527,10 @@ styled-components@^4.0.0-beta.8:
     react-is "^16.3.1"
     stylis "^3.5.0"
     stylis-rule-sheet "^0.0.10"
+
+styled-normalize@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/styled-normalize/-/styled-normalize-8.0.1.tgz#f1c390de61075cdcc45ae38a1c8c381c5667a0af"
 
 stylelint-config-recommended@^2.1.0:
   version "2.1.0"
