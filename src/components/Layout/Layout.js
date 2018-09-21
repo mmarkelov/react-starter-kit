@@ -9,7 +9,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectGlobal } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
 import cssVariables from '../styledVariables';
@@ -19,7 +19,7 @@ import Feedback from '../Feedback';
 import Footer from '../Footer';
 
 // eslint-disable-next-line no-unused-expressions
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
 html {
   color: #222;
   font-weight: 100;
@@ -39,6 +39,7 @@ class Layout extends React.Component {
   render() {
     return (
       <div>
+        <GlobalStyle />
         <Header />
         {this.props.children}
         <Feedback />
