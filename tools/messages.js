@@ -11,7 +11,6 @@ import chokidar from 'chokidar';
 import Promise from 'bluebird';
 import { transformFileSync } from 'babel-core';
 import { readFile, writeFile, glob } from './lib/fs';
-import babelrc from '../.babelrc';
 import { locales } from '../src/config';
 
 const GLOB_PATTERN = 'src/**/*.{js,jsx}';
@@ -119,7 +118,6 @@ async function extractMessages() {
     try {
       const posixName = posixPath(fileName);
       const result = transformFileSync(fileName, {
-        presets: babelrc.presets,
         plugins: ['react-intl'],
       }).metadata['react-intl'];
       if (result.messages && result.messages.length) {
