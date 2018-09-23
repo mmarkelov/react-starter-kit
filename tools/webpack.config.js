@@ -104,9 +104,6 @@ const config = {
                 debug: false,
               },
             ],
-            // Experimental ECMAScript proposals
-            // https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-
-            '@babel/preset-stage-2',
             // Flow
             // https://github.com/babel/babel/tree/master/packages/babel-preset-flow
             '@babel/preset-flow',
@@ -348,7 +345,7 @@ const clientConfig = {
       output: `${BUILD_DIR}/asset-manifest.json`,
       publicPath: true,
       writeToDisk: true,
-      customize: (key, value) => {
+      customize: ({ key, value }) => {
         // You can prevent adding items to the manifest by returning false.
         if (key.toLowerCase().endsWith('.map')) return false;
         return { key, value };
