@@ -97,7 +97,6 @@ const config = {
               {
                 targets: {
                   browsers: pkg.browserslist,
-                  forceAllTransforms: !isDebug, // for UglifyJS
                 },
                 modules: false,
                 useBuiltIns: false,
