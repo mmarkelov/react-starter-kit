@@ -27,16 +27,27 @@ class Html extends React.Component {
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     // eslint-disable-next-line react/forbid-prop-types
     app: PropTypes.object.isRequired,
-    children: PropTypes.string.isRequired,
+    children: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+      .isRequired,
+    isStream: PropTypes.bool,
   };
 
   static defaultProps = {
     styles: [],
     scripts: [],
+    isStream: false,
   };
 
   render() {
-    const { title, description, styles, scripts, app, children } = this.props;
+    const {
+      title,
+      description,
+      styles,
+      scripts,
+      app,
+      children,
+      isStream,
+    } = this.props;
     return (
       <html className="no-js" lang={app.lang}>
         <head>
@@ -59,11 +70,17 @@ class Html extends React.Component {
           ))}
         </head>
         <body>
-          <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
+          {isStream ? (
+            <div id="app">{children}</div>
+          ) : (
+            <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
+          )}
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
           />
-          {scripts.map(script => <script key={script} src={script} />)}
+          {scripts.map(script => (
+            <script key={script} src={script} />
+          ))}
           {config.analytics.googleTrackingId && (
             <script
               dangerouslySetInnerHTML={{

@@ -42,6 +42,8 @@ import { setRuntimeVariable } from './actions/runtime';
 import { setLocale } from './actions/intl';
 import config from './config';
 
+const isStream = process.argv.includes('--stream');
+
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
   // send entire app down. Process manager will restart it
@@ -233,7 +235,10 @@ app.get('*', async (req, res, next) => {
     await getDataFromTree(rootComponent);
     // this is here because of Apollo redux APOLLO_QUERY_STOP action
     await Promise.delay(0);
-    data.children = await ReactDOM.renderToString(rootComponent);
+
+    data.children = isStream
+      ? await rootComponent
+      : await ReactDOM.renderToString(rootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
 
     const scripts = new Set();
@@ -261,9 +266,27 @@ app.get('*', async (req, res, next) => {
       apolloState: context.client.extract(),
     };
 
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
-    res.send(`<!doctype html>${html}`);
+
+    if (isStream) {
+      res.write('<!doctype html>');
+
+      const stream = ReactDOM.renderToStaticNodeStream(
+        <Html {...data} isStream />,
+      );
+
+      stream.pipe(
+        res,
+        { end: false },
+      );
+
+      stream.on('end', () => {
+        res.end();
+      });
+    } else {
+      const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+      res.send(`<!doctype html>${html}`);
+    }
   } catch (err) {
     next(err);
   }
