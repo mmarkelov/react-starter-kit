@@ -26,7 +26,7 @@ class Html extends React.Component {
     ),
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     app: PropTypes.object, // eslint-disable-line
-    children: PropTypes.string.isRequired,
+    children: PropTypes.object.isRequired, // eslint-disable-line
   };
 
   static defaultProps = {
