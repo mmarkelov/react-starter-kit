@@ -89,7 +89,6 @@ const Button = styled.button`
 const Facebook = styled(Button)`
   border-color: #3b5998;
   background: #3b5998;
-  composes: button;
 
   &:hover {
     background: #2d4373;
@@ -99,7 +98,6 @@ const Facebook = styled(Button)`
 const Google = styled(Button)`
   border-color: #dd4b39;
   background: #dd4b39;
-  composes: button;
 
   &:hover {
     background: #c23321;
@@ -109,7 +107,6 @@ const Google = styled(Button)`
 const Tweeter = styled(Button)`
   border-color: #55acee;
   background: #55acee;
-  composes: button;
 
   &:hover {
     background: #2795e9;

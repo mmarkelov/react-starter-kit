@@ -18,31 +18,18 @@ class Html extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    styleElements: PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }).isRequired,
-    ),
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     app: PropTypes.object, // eslint-disable-line
     children: PropTypes.object.isRequired, // eslint-disable-line
   };
 
   static defaultProps = {
-    styleElements: [],
     scripts: [],
   };
 
   render() {
-    const {
-      title,
-      description,
-      scripts,
-      app,
-      children,
-      styleElements,
-    } = this.props;
+    const { title, description, scripts, app, children } = this.props;
+
     return (
       <html className="no-js" lang="en">
         <head>
@@ -56,7 +43,6 @@ class Html extends React.Component {
           ))}
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="apple-touch-icon" href="/icon.png" />
-          {styleElements.map(styleElement => styleElement)}
         </head>
         <body>
           <div id="app">{children}</div>
