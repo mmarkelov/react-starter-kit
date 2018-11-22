@@ -78,10 +78,6 @@ async function onLocationChange(location, action) {
           if (window.history && 'scrollRestoration' in window.history) {
             window.history.scrollRestoration = 'manual';
           }
-
-          const elem = document.getElementById('css');
-          if (elem) elem.parentNode.removeChild(elem);
-          return;
         }
 
         document.title = route.title;
