@@ -171,10 +171,10 @@ app.get('*', async (req, res, next) => {
     };
 
     const sheet = new ServerStyleSheet();
+    const jsx = sheet.collectStyles(<Html {...data} />);
 
     if (useStream) {
       res.write('<!doctype html>');
-      const jsx = sheet.collectStyles(<Html {...data} />);
       const stream = sheet.interleaveWithNodeStream(
         ReactDOM.renderToStaticNodeStream(jsx),
       );
@@ -186,10 +186,8 @@ app.get('*', async (req, res, next) => {
         res.end();
       });
     } else {
-      const styleElements = sheet.getStyleElement();
-      data.styleElements = styleElements;
-      const html = ReactDOM.renderToString(<Html {...data} />);
-      res.send(`<!doctype html>${html}`);
+      const html = ReactDOM.renderToString(jsx);
+      res.send(`<!doctype html>${sheet.getStyleTags()}${html}`);
     }
     res.status(route.status || 200);
   } catch (err) {
