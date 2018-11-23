@@ -23,19 +23,17 @@ const Container = styled.div`
   max-width: ${cssVariables.maxContentWidth};
 `;
 
-export default class Contact extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
+const Contact = ({ title }) => (
+  <RootDiv>
+    <Container>
+      <h1>{title}</h1>
+      <p>...</p>
+    </Container>
+  </RootDiv>
+);
 
-  render() {
-    return (
-      <RootDiv>
-        <Container>
-          <h1>{this.props.title}</h1>
-          <p>...</p>
-        </Container>
-      </RootDiv>
-    );
-  }
-}
+Contact.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
+export default Contact;
