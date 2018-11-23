@@ -23,19 +23,17 @@ const Container = styled.div`
   max-width: ${cssVariables.maxContentWidth};
 `;
 
-export default class Register extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
+const Register = ({ title }) => (
+  <RootDiv>
+    <Container>
+      <h1>{title}</h1>
+      <p>...</p>
+    </Container>
+  </RootDiv>
+);
 
-  render() {
-    return (
-      <RootDiv>
-        <Container>
-          <h1>{this.props.title}</h1>
-          <p>...</p>
-        </Container>
-      </RootDiv>
-    );
-  }
-}
+Register.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
+export default Register;

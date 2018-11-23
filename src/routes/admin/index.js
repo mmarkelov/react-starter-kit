@@ -14,7 +14,7 @@ import Admin from './Admin';
 const title = 'Admin Page';
 const isAdmin = false;
 
-function action() {
+const action = () => {
   if (!isAdmin) {
     return { redirect: '/login' };
   }
@@ -28,6 +28,6 @@ function action() {
       </Layout>
     ),
   };
-}
+};
 
 export default action;

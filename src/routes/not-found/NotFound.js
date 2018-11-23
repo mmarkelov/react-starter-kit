@@ -23,19 +23,17 @@ const Container = styled.div`
   max-width: ${cssVariables.maxContentWidth};
 `;
 
-export default class NotFound extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
+const NotFound = ({ title }) => (
+  <RootDiv>
+    <Container>
+      <h1>{title}</h1>
+      <p>Sorry, the page you were trying to view does not exist.</p>
+    </Container>
+  </RootDiv>
+);
 
-  render() {
-    return (
-      <RootDiv>
-        <Container>
-          <h1>{this.props.title}</h1>
-          <p>Sorry, the page you were trying to view does not exist.</p>
-        </Container>
-      </RootDiv>
-    );
-  }
-}
+NotFound.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
+export default NotFound;

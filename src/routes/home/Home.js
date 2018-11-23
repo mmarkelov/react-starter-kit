@@ -51,35 +51,33 @@ const NewsDesc = styled.div`
   }
 `;
 
-export default class Home extends React.Component {
-  static propTypes = {
-    news: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        link: PropTypes.string.isRequired,
-        content: PropTypes.string,
-      }),
-    ).isRequired,
-  };
+const Home = ({ news }) => (
+  <RootDiv>
+    <Container>
+      <h1>React.js News</h1>
+      {news.map(item => (
+        <NewsItem key={item.link}>
+          <NewsTitle>
+            <a href={item.link}>{item.title}</a>
+          </NewsTitle>
+          <NewsDesc
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: item.content }}
+          />
+        </NewsItem>
+      ))}
+    </Container>
+  </RootDiv>
+);
 
-  render() {
-    return (
-      <RootDiv>
-        <Container>
-          <h1>React.js News</h1>
-          {this.props.news.map(item => (
-            <NewsItem key={item.link}>
-              <NewsTitle>
-                <a href={item.link}>{item.title}</a>
-              </NewsTitle>
-              <NewsDesc
-                // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={{ __html: item.content }}
-              />
-            </NewsItem>
-          ))}
-        </Container>
-      </RootDiv>
-    );
-  }
-}
+Home.propTypes = {
+  news: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+      content: PropTypes.string,
+    }),
+  ).isRequired,
+};
+
+export default Home;
