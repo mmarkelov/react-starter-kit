@@ -10,6 +10,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import RootContext from '../context';
+
 const ContextType = {
   // Universal HTTP client
   fetch: PropTypes.func.isRequired,
@@ -17,8 +19,6 @@ const ContextType = {
   // eslint-disable-next-line react/forbid-prop-types
   query: PropTypes.object,
 };
-
-const RootContext = React.createContext();
 
 /**
  * The top-level React component setting context (global) variables
@@ -59,7 +59,5 @@ class App extends React.PureComponent {
     );
   }
 }
-
-export { RootContext };
 
 export default App;
