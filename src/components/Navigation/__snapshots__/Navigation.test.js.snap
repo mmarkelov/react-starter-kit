@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navigation have right background 1`] = `
+.c0 {
+  float: right;
+  margin: 6px 0 0;
+}
+
+.c1 {
+  display: inline-block;
+  padding: 3px 8px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.125em;
+}
+
+.c1,
+.c1:active,
+.c1:visited {
+  color: rgba(255,255,255,0.6);
+}
+
+.c1:hover {
+  color: rgba(255,255,255,1);
+}
+
+.c2 {
+  color: rgba(255,255,255,0.3);
+}
+
+.c3 {
+  display: inline-block;
+  padding: 3px 8px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.125em;
+  margin-right: 8px;
+  margin-left: 8px;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.15);
+  color: #fff;
+}
+
+.c3,
+.c3:active,
+.c3:visited {
+  color: rgba(255,255,255,0.6);
+}
+
+.c3:hover {
+  color: rgba(255,255,255,1);
+}
+
+.c3:hover {
+  background: rgba(0,0,0,0.3);
+}
+
+<div
+  className="c0"
+  role="navigation"
+>
+  <a
+    className="c1"
+    href="/about"
+    onClick={[Function]}
+  >
+    About
+  </a>
+  <a
+    className="c1"
+    href="/contact"
+    onClick={[Function]}
+  >
+    Contact
+  </a>
+  <span
+    className="c2"
+  >
+     | 
+  </span>
+  <a
+    className="c1"
+    href="/login"
+    onClick={[Function]}
+  >
+    Log in
+  </a>
+  <span
+    className="c2"
+  >
+    or
+  </span>
+  <a
+    className="c3"
+    href="/register"
+    onClick={[Function]}
+  >
+    Sign up
+  </a>
+</div>
+`;
