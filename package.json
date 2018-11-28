@@ -76,6 +76,7 @@
     "husky": "^1.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
+    "jest-styled-components": "^6.3.1",
     "lint-staged": "^8.1.0",
     "markdown-it": "^8.4.2",
     "mkdirp": "^0.5.1",
@@ -119,7 +120,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "lint:js": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
-    "lint:css":"stylelint './src/**/*.js'",
+    "lint:css": "stylelint './src/**/*.js'",
     "lint": "yarn run lint:js && yarn run lint:css",
     "fix:js": "yarn run lint:js --fix",
     "flow": "flow",
