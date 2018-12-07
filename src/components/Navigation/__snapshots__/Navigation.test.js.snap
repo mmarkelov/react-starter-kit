@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Navigation have right background 1`] = `
+exports[`Navigation renders correctly 1`] = `
 .c0 {
   float: right;
   margin: 6px 0 0;

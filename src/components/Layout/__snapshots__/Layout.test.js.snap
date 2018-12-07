@@ -44,7 +44,7 @@ exports[`Layout renders children correctly 1`] = `
           or
         </span>
         <a
-          className="Navigation__HighlightNavLink-sc-1txg1td-3 kcCXmB"
+          className="Navigation__NavLink-sc-1txg1td-1 Navigation__HighlightNavLink-sc-1txg1td-3 kcCXmB"
           href="/register"
           onClick={[Function]}
         >
