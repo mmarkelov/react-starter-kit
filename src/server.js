@@ -22,7 +22,7 @@ import { ServerStyleSheet } from 'styled-components';
 import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
-import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
+import ErrorPage from './routes/error/ErrorPage';
 import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
@@ -205,11 +205,13 @@ pe.skipPackage('express');
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   console.error(pe.render(err));
-  const html = ReactDOM.renderToStaticMarkup(
+  const jsx = (
     <Html title="Internal Server Error" description={err.message}>
-      {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
-    </Html>,
+      <ErrorPage error={err} />
+    </Html>
   );
+
+  const html = ReactDOM.renderToString(jsx);
   res.status(err.status || 500);
   res.send(`<!doctype html>${html}`);
 });
