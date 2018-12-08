@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "antd": "^3.11.0",
     "apollo-cache-inmemory": "^1.3.9",
     "apollo-client": "^2.4.5",
     "apollo-link": "^1.2.3",
@@ -162,7 +163,6 @@
     ]
   },
   "scripts": {
-    "precommit": "lint-staged",
     "lint-js": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
     "lint-css": "stylelint \"src/**/*.{css,less,styl,scss,sass,sss}\"",
     "lint": "yarn run lint-js && yarn run lint-css",

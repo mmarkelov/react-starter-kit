@@ -11,9 +11,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedRelative } from 'react-intl';
 import { graphql, compose } from 'react-apollo';
+import { DatePicker } from 'antd';
+import antd from 'antd/lib/date-picker/style/index.css';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import newsQuery from './news.graphql';
 import s from './Home.css';
+
+import Menu from './Menu';
 
 class Home extends React.Component {
   static propTypes = {
@@ -30,10 +34,14 @@ class Home extends React.Component {
   };
 
   render() {
-    const { data: { loading, reactjsGetAllNews } } = this.props;
+    const {
+      data: { loading, reactjsGetAllNews },
+    } = this.props;
     return (
       <div className={s.root}>
         <div className={s.container}>
+          <DatePicker />
+          <Menu />
           <h1>React.js News</h1>
           {loading
             ? 'Loading...'
@@ -58,4 +66,7 @@ class Home extends React.Component {
   }
 }
 
-export default compose(withStyles(s), graphql(newsQuery))(Home);
+export default compose(
+  withStyles(antd, s),
+  graphql(newsQuery),
+)(Home);
