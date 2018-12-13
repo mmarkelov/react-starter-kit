@@ -40,5 +40,4 @@ ErrorPage.defaultProps = {
   error: null,
 };
 
-export { ErrorPage as ErrorPageWithoutStyle };
 export default ErrorPage;
