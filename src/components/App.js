@@ -11,6 +11,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider as ReduxProvider } from 'react-redux';
 
+import RootContext from '../context';
+import StyleContext from '../withStyles/styleContext';
+
 const ContextType = {
   // Enables critical path CSS rendering
   // https://github.com/kriasoft/isomorphic-style-loader
@@ -52,16 +55,17 @@ class App extends React.PureComponent {
     children: PropTypes.element.isRequired,
   };
 
-  static childContextTypes = ContextType;
-
-  getChildContext() {
-    return this.props.context;
-  }
-
   render() {
+    const { context, children } = this.props;
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
-    return React.Children.only(this.props.children);
+    return (
+      <StyleContext.Provider value={context}>
+        <RootContext.Provider value={{ insertCss: context.insertCss }}>
+          {React.Children.only(children)}
+        </RootContext.Provider>
+      </StyleContext.Provider>
+    );
   }
 }
 

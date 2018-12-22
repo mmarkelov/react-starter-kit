@@ -9,7 +9,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from '../../withStyles';
 import s from './Login.css';
 
 class Login extends React.Component {
@@ -18,10 +18,11 @@ class Login extends React.Component {
   };
 
   render() {
+    const { title } = this.props;
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>{this.props.title}</h1>
+          <h1>{title}</h1>
           <p className={s.lead}>
             Log in with your username or company email address.
           </p>
