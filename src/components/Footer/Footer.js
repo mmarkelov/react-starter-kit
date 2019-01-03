@@ -9,7 +9,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import cssVariables from '../styledVariables';
 import Link from '../Link';
 
 const LINKS = [
@@ -27,7 +26,7 @@ const RootDiv = styled.div`
 const Container = styled.div`
   margin: 0 auto;
   padding: 20px 15px;
-  max-width: ${cssVariables.maxContentWidth};
+  max-width: ${props => props.theme.maxContentWidth};
   text-align: center;
 `;
 

@@ -9,7 +9,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import cssVariables from '../styledVariables';
 
 const RootDiv = styled.div`
   background: #f5f5f5;
@@ -19,7 +18,7 @@ const RootDiv = styled.div`
 const Container = styled.div`
   margin: 0 auto;
   padding: 20px 8px;
-  max-width: ${cssVariables.maxContentWidth};
+  max-width: ${props => props.theme.maxContentWidth};
   text-align: center;
   font-size: 1.5em;
 `;

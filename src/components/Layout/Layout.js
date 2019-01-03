@@ -9,9 +9,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import styledNormalize from 'styled-normalize';
-import cssVariables from '../styledVariables';
+import theme from '../theme';
 import Header from '../Header';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
@@ -23,7 +23,7 @@ html {
   color: #222;
   font-weight: 100;
   font-size: 1em;
-  font-family: ${cssVariables.fontFamilyBase};
+  font-family: ${theme.fontFamilyBase};
   line-height: 1.375;
 }
 
@@ -177,13 +177,15 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div>
-        <GlobalStyle />
-        <Header />
-        {this.props.children}
-        <Feedback />
-        <Footer />
-      </div>
+      <ThemeProvider theme={theme}>
+        <div>
+          <GlobalStyle />
+          <Header />
+          {this.props.children}
+          <Feedback />
+          <Footer />
+        </div>
+      </ThemeProvider>
     );
   }
 }
