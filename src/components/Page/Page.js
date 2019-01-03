@@ -10,7 +10,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import cssVariables from '../styledVariables';
 
 const RootDiv = styled.div`
   padding-left: 20px;
@@ -20,7 +19,7 @@ const RootDiv = styled.div`
 const Container = styled.div`
   margin: 0 auto;
   padding: 0 0 40px;
-  max-width: ${cssVariables.maxContentWidth};
+  max-width: ${props => props.theme.maxContentWidth};
 `;
 
 const Page = ({ title, html }) => (

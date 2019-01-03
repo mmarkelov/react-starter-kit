@@ -9,7 +9,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import cssVariables from '../styledVariables';
 import Link from '../Link';
 import Navigation from '../Navigation';
 import logoUrl from './logo-small.png';
@@ -25,7 +24,7 @@ const RootDiv = styled.div`
 const Container = styled.div`
   margin: 0 auto;
   padding: 20px 0;
-  max-width: ${cssVariables.maxContentWidth};
+  max-width: ${props => props.theme.maxContentWidth};
 `;
 
 const BrandLink = styled(Link)`

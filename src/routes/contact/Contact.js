@@ -10,7 +10,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import cssVariables from '../../components/styledVariables';
+import cssVariables from '../../components/theme';
 
 const RootDiv = styled.div`
   padding-left: 20px;
