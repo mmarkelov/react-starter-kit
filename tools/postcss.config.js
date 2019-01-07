@@ -63,5 +63,15 @@ module.exports = () => ({
       browsers: pkg.browserslist,
       flexbox: 'no-2009',
     }),
+    require('cssnano')({
+      preset: [
+        'default',
+        {
+          discardComments: {
+            removeAll: true,
+          },
+        },
+      ],
+    }),
   ],
 });
