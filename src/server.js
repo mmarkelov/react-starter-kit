@@ -8,6 +8,7 @@
  */
 
 import path from 'path';
+import fs from 'fs';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
@@ -20,6 +21,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { ServerStyleSheet } from 'styled-components';
 import PrettyError from 'pretty-error';
+import xlsx from 'node-xlsx';
 import App from './components/App';
 import Html from './components/Html';
 import ErrorPage from './routes/error/ErrorPage';
@@ -123,6 +125,34 @@ app.use(
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
+app.get('/xlsx', async (req, res) => {
+  const data = [
+    [1, 2, 3],
+    [true, false, null, 'sheetjs'],
+    ['foo', 'bar', new Date('2014-02-19T14:30Z'), '0.3'],
+    ['baz', null, 'qux'],
+  ];
+
+  const buffer = xlsx.build([{ name: 'mySheetName', data }]);
+
+  const tmpExcel = `filename.xlsx`;
+  fs.writeFile(
+    tmpExcel,
+    buffer,
+    {
+      encoding: 'utf8',
+    },
+    err => {
+      if (err) throw new Error(err);
+    },
+  );
+
+  res.setHeader('Content-disposition', `attachment; filename="${tmpExcel}"`);
+  res.setHeader('Content-Type', 'application/octet-stream');
+  fs.createReadStream(tmpExcel).pipe(res);
+  fs.unlinkSync(tmpExcel);
+});
+
 app.get('*', async (req, res, next) => {
   try {
     // Universal HTTP client
