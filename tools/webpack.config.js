@@ -88,7 +88,7 @@ const config = {
                 },
                 forceAllTransforms: !isDebug, // for UglifyJS
                 modules: false,
-                useBuiltIns: false,
+                useBuiltIns: 'usage',
                 debug: false,
               },
             ],
@@ -363,7 +363,7 @@ const serverConfig = {
                         node: pkg.engines.node.match(/(\d+\.?)+/)[0],
                       },
                       modules: false,
-                      useBuiltIns: false,
+                      useBuiltIns: 'usage',
                       debug: false,
                     },
                   ],

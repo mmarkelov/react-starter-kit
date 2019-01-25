@@ -8,7 +8,7 @@
  */
 
 import 'whatwg-fetch';
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
@@ -69,7 +69,9 @@ async function onLocationChange(location, action) {
 
     const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
     appInstance = renderReactApp(
-      <App context={context}>{route.component}</App>,
+      <StrictMode>
+        <App context={context}>{route.component}</App>
+      </StrictMode>,
       container,
       () => {
         if (isInitialRender) {
