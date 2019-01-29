@@ -21,7 +21,6 @@ async function action({ fetch }) {
   if (!data || !data.news) throw new Error('Failed to load the news feed.');
   return {
     title: 'React Starter Kit',
-    chunks: ['home'],
     component: (
       <Layout>
         <Home news={data.news} />
